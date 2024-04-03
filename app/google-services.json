@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "435276367704",
+    "project_id": "socialcrib-228a9",
+    "storage_bucket": "socialcrib-228a9.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:435276367704:android:9cbf82edc836b7621f472d",
+        "android_client_info": {
+          "package_name": "com.logistics.socialcrib"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDbVtblUlsxUA8nLf-rdvpFg8b5liF96qg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

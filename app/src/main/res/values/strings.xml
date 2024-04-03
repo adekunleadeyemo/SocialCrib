@@ -1,0 +1,61 @@
+<resources>
+    <string name="app_name">SocialCrib</string>
+    <string name="login_qst">Already have an account ?</string>
+    <string name="login">Login</string>
+    <string name="join">Join us</string>
+    <string name="home_txt">Hang out with friends, meet new ones,\nand talk about anything</string>
+    <string name="home_h1">Welcome to</string>
+    <string name="home_h2">SocialCrib</string>
+    <string name="next">Next</string>
+
+    <!--    login string-->
+    <string name="login_h1">Welcome Back</string>
+    <string name="login_h2">Please enter your phone number</string>
+    <string name="login_input_hint">Phone number</string>
+    <string name="login_footer_txt1">*By entering your number you\'re agreeing to our</string>
+    <string name="login_footer_txt2">terms of service</string>
+    <string name="login_footer_txt3">and</string>
+    <string name="login_footer_txt4">privacy policy</string>
+    <string name="login_h1a">Let\'s Get Started</string>
+
+    <!--    Otp string-->
+    <string name="otp_h1">OTP Verification</string>
+    <string name="otp_h2">Please enter the code we just texted you</string>
+    <string name="otp_action_btn">Submit</string>
+    <string name="otp_footer1">Didn\'t recieve the OTP ?</string>
+    <string name="otp_footer2">Resend OTP</string>
+    <string name="otp_footer2a">Wait for a few seconds before resending Otp</string>
+
+
+    <!--    Verification string-->
+    <string name="ver_h1">Verification Success</string>
+    <string name="ver_h2">Your phone no is verified successfully</string>
+    <string name="ver_action_btn">Continue</string>
+
+    <!--    User Details String-->
+    <string name="user_img_txt">Add a Photo</string>
+    <string name="user_h1">What\'s your full name ?</string>
+    <string name="fname">First Name</string>
+    <string name="lname">Last Name</string>
+    <string name="user_h1a">*People use real names on SocialCrib</string>
+    <string name="user_h2">Your username</string>
+    <string name="uname">Vinod772</string>
+    <string name="uname_change">Change</string>
+    <string name="user_h3">What\'s your age ?</string>
+    <string name="user_age">Enter your age</string>
+    <string name="user_h3a">*your age will not be visible on your profile</string>
+    <string name="user_h4">Add bio</string>
+    <string name="user_bio">Enter your bio</string>
+    <string name="user_h4a">*max 200 characters</string>
+
+
+    <!--    Extras-->
+    <string name="exr_type">type</string>
+    <string name="exr_signup">signup</string>
+    <string name="exr_login">login</string>
+
+<!--    User Intro-->
+    <string name="user_intro_h1">Follow your friends on\n SocialCrib</string>
+    <string name="user_intro_footer">or Select Individually</string>
+
+</resources>
