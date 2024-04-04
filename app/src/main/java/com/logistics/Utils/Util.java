@@ -1,10 +1,12 @@
 package com.logistics.Utils;
 
 import android.content.Context;
+import android.net.Uri;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.logistics.Model.User;
@@ -31,7 +33,14 @@ public class Util {
     public static StorageReference imgUrl(List<List<User>> userTable, int pos1, int pos2){
 
        return  FirebaseStorage.getInstance().getReference().child("images").
-                child(userTable.get(pos1).get(pos2).getUserId());
+                child(userTable.get(pos1).get(pos2).getImgUrl());
+
+    }
+
+    public static Task<Uri> getEmptyProfile (){
+
+        return  FirebaseStorage.getInstance().getReference().child("images").
+                child("empty_profile.jpeg").getDownloadUrl();
 
     }
 }

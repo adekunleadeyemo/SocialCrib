@@ -54,7 +54,7 @@
     <string name="exr_signup">signup</string>
     <string name="exr_login">login</string>
 
-<!--    User Intro-->
+    <!--    User Intro-->
     <string name="user_intro_h1">Follow your friends on\n SocialCrib</string>
     <string name="user_intro_footer">or Select Individually</string>
 

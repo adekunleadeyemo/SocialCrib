@@ -2,6 +2,9 @@ package com.logistics.Model;
 
 import com.google.firebase.Timestamp;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class User {
 
     private String Id;
@@ -17,6 +20,60 @@ public class User {
 
     private String fcmToken;
 
+    private List<String> following;
+    private List<String> followers;
+
+    public List<String> getFollowing() {
+        return following;
+    }
+
+    public void setFollowing(List<String> following) {
+        this.following = following;
+    }
+
+    public void addFollowing(String id) {
+        if(following == null){
+            following = new ArrayList<>();
+            following.add(id);
+        }
+        else {
+            following.add(id);
+        }
+
+    }
+
+    public void removeFollowing(String id) {
+        if(following != null){
+            following.remove(id);
+        }
+
+    }
+
+    public void addFollower(String id) {
+        if(followers == null){
+            followers = new ArrayList<>();
+            followers.add(id);
+        }
+        else {
+            followers.add(id);
+        }
+
+    }
+
+    public void removeFollower(String id) {
+        if(followers != null){
+            followers.remove(id);
+        }
+
+    }
+    public List<String> getFollowers() {
+        return followers;
+    }
+
+    public void setFollowers(List<String> followers) {
+        this.followers = followers;
+    }
+
     public User() {
     }
     public User(String Id, String phone, Timestamp createdTimestamp) {
@@ -24,7 +81,6 @@ public class User {
         this.phone = phone;
         this.createdTimestamp = createdTimestamp;
     }
-
     public String getUserId() {
         return Id;
     }

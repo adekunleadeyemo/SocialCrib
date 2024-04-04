@@ -21,19 +21,19 @@
                 android:id="@+id/user_img1"
                 android:layout_width="70dp"
                 android:layout_height="70dp"
-                android:src="@drawable/img3"
+                android:src="@drawable/empty_profile"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
 
             <ImageView
+                android:id="@+id/user_select1"
                 android:layout_width="30sp"
                 android:layout_height="30sp"
                 android:layout_marginEnd="-10dp"
                 android:layout_marginBottom="10dp"
                 android:src="@drawable/add_plus"
-                app:tint="@color/accent"
                 android:background="@drawable/intro_img_bg"
                 android:backgroundTint="@color/white_bg"
                 app:layout_constraintBottom_toBottomOf="@id/user_img1"
@@ -64,18 +64,18 @@
                 android:id="@+id/user_img2"
                 android:layout_width="70dp"
                 android:layout_height="70dp"
-                android:src="@drawable/img3"
+                android:src="@drawable/empty_profile"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
+                android:id="@+id/user_select2"
                 android:layout_width="30sp"
                 android:layout_height="30sp"
                 android:layout_marginEnd="-10dp"
                 android:layout_marginBottom="10dp"
                 android:src="@drawable/add_plus"
-                app:tint="@color/accent"
                 android:background="@drawable/intro_img_bg"
                 android:backgroundTint="@color/white_bg"
                 app:layout_constraintBottom_toBottomOf="@id/user_img2"
@@ -106,18 +106,18 @@
                 android:id="@+id/user_img3"
                 android:layout_width="70dp"
                 android:layout_height="70dp"
-                android:src="@drawable/img3"
+                android:src="@drawable/empty_profile"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
+                android:id="@+id/user_select3"
                 android:layout_width="30sp"
                 android:layout_height="30sp"
                 android:layout_marginEnd="-10dp"
                 android:layout_marginBottom="10dp"
                 android:src="@drawable/add_plus"
-                app:tint="@color/accent"
                 android:background="@drawable/intro_img_bg"
                 android:backgroundTint="@color/white_bg"
                 app:layout_constraintBottom_toBottomOf="@id/user_img3"

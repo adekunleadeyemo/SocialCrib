@@ -74,6 +74,21 @@ public class UserDetails extends AppCompatActivity {
         intent = new Intent(UserDetails.this, UserIntro.class);
         intent.putExtras(Objects.requireNonNull(getIntent().getExtras()));
 
+        Util.getEmptyProfile().addOnCompleteListener(new OnCompleteListener<Uri>() {
+            @Override
+            public void onComplete(@NonNull Task<Uri> task) {
+                Glide.with(getApplicationContext())
+                        .load(task.getResult())
+//                                .transform(new CenterCrop(), new RoundedCorners(50))
+                        .transform(new CenterCrop(), new CircleCrop())
+                        .into(binding.userImg);
+
+                    binding.detailsProg.setVisibility(View.GONE);
+                    binding.detailsDiv.setVisibility(View.VISIBLE);
+            }
+        });
+
+
         genUserName();
 
         binding.userUnameBtn.setOnClickListener(e -> genUserName());
@@ -95,12 +110,16 @@ public class UserDetails extends AppCompatActivity {
 
 
         binding.userActionBtn.setOnClickListener(e -> {
-            binding.userActionBtn.setVisibility(View.INVISIBLE);
+            binding.userActionBtnTxt.setVisibility(View.GONE);
             binding.userActionBtnLoad.setVisibility(View.VISIBLE);
             int userAge = 0;
 
-
-
+            if(userImgUri == null){
+                newUser.setImgUrl("empty_profile.jpeg");
+            }
+            else{
+                newUser.setImgUrl(newUser.getUserId());
+            }
             if(binding.userAge.getText().length() > 1){
                 userAge = Integer.parseInt(binding.userAge.getText().toString());
             }
@@ -123,14 +142,15 @@ public class UserDetails extends AppCompatActivity {
                             if (userImgUri != null) {
                                 uploadToBucket(userImgUri, newUser.getUserId());
                             }
+                            else {
+                                    startActivity(intent);
+                            }
                             Util.toast(getApplicationContext(), "successfully updated");
                         }
+
                     }
                 });
             }
-
-            binding.userActionBtnLoad.setVisibility(View.INVISIBLE);
-            binding.userActionBtn.setVisibility(View.VISIBLE);
         });
 
     }
@@ -182,12 +202,6 @@ public class UserDetails extends AppCompatActivity {
                     }
                 }
             });
-
-
-
-
-
-
         private void uploadToBucket(Uri imgUri, String imgSrc){
 
             FirebaseApp.initializeApp(this);
@@ -203,8 +217,8 @@ public class UserDetails extends AppCompatActivity {
             }).addOnFailureListener(new OnFailureListener() {
                 @Override
                 public void onFailure(@NonNull Exception e) {
-                    binding.userActionBtnLoad.setVisibility(View.INVISIBLE);
-                    binding.userActionBtn.setVisibility(View.VISIBLE);
+                    binding.userActionBtnLoad.setVisibility(View.GONE);
+                    binding.userActionBtnTxt.setVisibility(View.VISIBLE);
                     Util.toast(getApplicationContext(), "File was not uploaded");
                 }
             });
