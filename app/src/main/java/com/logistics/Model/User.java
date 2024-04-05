@@ -23,6 +23,16 @@ public class User {
     private List<String> following;
     private List<String> followers;
 
+    private List<String> topics;
+
+    public List<String> getTopics() {
+        return topics;
+    }
+
+    public void setTopics(List<String> topics) {
+        this.topics = topics;
+    }
+
     public List<String> getFollowing() {
         return following;
     }

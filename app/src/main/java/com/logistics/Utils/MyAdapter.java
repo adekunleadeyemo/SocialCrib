@@ -245,7 +245,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyviewHolder> {
                     int pos = (getAdapterPosition());
                     int fpos = pos*3;
                     if(pos != RecyclerView.NO_POSITION){
-                        recyclerViewInterface.onItemClick(fpos,"click");
+                        recyclerViewInterface.onItemClick(pos,fpos,"click");
                     }
                 }
             });
@@ -255,7 +255,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyviewHolder> {
                     int pos = (getAdapterPosition());
                     int fpos = pos*3;
                     if(pos != RecyclerView.NO_POSITION){
-                        recyclerViewInterface.onItemClick(fpos+1,"click");
+                        recyclerViewInterface.onItemClick(pos,fpos+1,"click");
                     }
                 }
             });
@@ -265,7 +265,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyviewHolder> {
                     int pos = (getAdapterPosition());
                     int fpos = pos*3;
                     if(pos != RecyclerView.NO_POSITION){
-                        recyclerViewInterface.onItemClick(fpos+2,"click");
+                        recyclerViewInterface.onItemClick(pos,fpos+2,"click");
                     }
                 }
             });

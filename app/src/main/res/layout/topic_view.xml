@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+    android:gravity="center"
+        android:layout_marginVertical="10dp"
+    >
+    <LinearLayout
+        android:id="@+id/topic_div1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/circurlar_bg"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:paddingHorizontal="20dp"
+        android:paddingVertical="5dp"
+        android:layout_marginHorizontal="10dp"
+        >
+        <ImageView
+            android:layout_marginHorizontal="10sp"
+            android:id="@+id/topic_img1"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            />
+        <TextView
+            android:id="@+id/topic_txt1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/topic"
+            android:textSize="18sp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginEnd="10sp"
+
+        />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/topic_div2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="@drawable/circular_bg_active"
+        android:paddingHorizontal="20dp"
+        android:paddingVertical="5dp"
+        android:layout_marginHorizontal="10dp"
+        >
+        <ImageView
+            android:id="@+id/topic_img2"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginHorizontal="10sp"
+            />
+        <TextView
+            android:id="@+id/topic_txt2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white_bg"
+            android:textSize="18sp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginEnd="10sp"
+            android:text="@string/topic" />
+    </LinearLayout>
+
+
+</LinearLayout>
+

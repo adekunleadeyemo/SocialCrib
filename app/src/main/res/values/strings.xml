@@ -58,4 +58,8 @@
     <string name="user_intro_h1">Follow your friends on\n SocialCrib</string>
     <string name="user_intro_footer">or Select Individually</string>
 
+    <!--    Select Topic-->
+    <string name="topic">Topic</string>
+    <string name="topic_intro">Choose 5 topics of your\n interest</string>
+
 </resources>

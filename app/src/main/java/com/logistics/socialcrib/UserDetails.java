@@ -79,7 +79,6 @@ public class UserDetails extends AppCompatActivity {
             public void onComplete(@NonNull Task<Uri> task) {
                 Glide.with(getApplicationContext())
                         .load(task.getResult())
-//                                .transform(new CenterCrop(), new RoundedCorners(50))
                         .transform(new CenterCrop(), new CircleCrop())
                         .into(binding.userImg);
 

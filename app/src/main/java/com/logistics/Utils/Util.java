@@ -43,4 +43,11 @@ public class Util {
                 child("empty_profile.jpeg").getDownloadUrl();
 
     }
+
+    public static Task<Uri> getIcon (String id){
+
+        return  FirebaseStorage.getInstance().getReference().child("icons").
+                child(id).getDownloadUrl();
+
+    }
 }

@@ -20,6 +20,9 @@
         android:theme="@style/Theme.SocialCrib"
         tools:targetApi="31">
         <activity
+            android:name=".SelectLocation"
+            android:exported="false" />
+        <activity
             android:name=".SelectTopics"
             android:exported="false" />
         <activity

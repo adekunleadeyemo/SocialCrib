@@ -85,8 +85,8 @@ public class UserIntro extends AppCompatActivity implements RecyclerViewInterfac
                                             DbUtil.user(e.getUserId()).set(e).addOnCompleteListener(new OnCompleteListener<Void>() {
                                                 @Override
                                                 public void onComplete(@NonNull Task<Void> task) {
-                                                    startActivity(intent);
                                                     Util.toast(getApplicationContext(),"Completed Add Following!");
+                                                    startActivity(intent);
                                                 }
                                             });
                                         });
@@ -119,7 +119,6 @@ public class UserIntro extends AppCompatActivity implements RecyclerViewInterfac
                     rv.setAdapter(myAdapter);
                     rv.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
                     rv.setHasFixedSize(true);
-                    myAdapter.notifyDataSetChanged();
                     userProgBar.setVisibility(View.GONE);
                     userIntroDiv.setVisibility(View.VISIBLE);
                 }
@@ -134,9 +133,7 @@ public class UserIntro extends AppCompatActivity implements RecyclerViewInterfac
 
 
     @Override
-    public void onItemClick(int position, String event) {
-
-        Boolean isF = myAdapter.getFollowing().get(position);
+    public void onItemClick(int pos, int position, String event) {
 
         if(Boolean.FALSE.equals(myAdapter.getFollowing().get(position))){
             myAdapter.updateFollowing(position,true);
@@ -150,7 +147,7 @@ public class UserIntro extends AppCompatActivity implements RecyclerViewInterfac
 
         }
 
-        myAdapter.notifyDataSetChanged();
+        myAdapter.notifyItemChanged(pos);
     }
 
 
