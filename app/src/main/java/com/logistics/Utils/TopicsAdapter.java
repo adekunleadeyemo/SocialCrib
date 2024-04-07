@@ -32,6 +32,16 @@ public class TopicsAdapter extends RecyclerView.Adapter<TopicsAdapter.MyviewHold
 
     Context context;
     List<List<String>> topics;
+
+    public void setTopics(List<List<String>> topics) {
+        this.topics = topics;
+    }
+
+    public void setTopicsIcon(List<List<Integer>> topicsIcon) {
+        this.topicsIcon = topicsIcon;
+    }
+
+    List<List<Integer>> topicsIcon;
     List<String> selectedTopics;
 
     LinearLayout.LayoutParams layoutParams;
@@ -68,13 +78,6 @@ public class TopicsAdapter extends RecyclerView.Adapter<TopicsAdapter.MyviewHold
 
         topics = new ArrayList<>();
         selectedTopics = new ArrayList<>();
-        topics.add(Arrays.asList("Nigeria","Instagram"));
-        topics.add(Arrays.asList("Bring a Drink","Startup"));
-        topics.add(Arrays.asList("Fitness","Health"));
-        topics.add(Arrays.asList("Dating","Medication"));
-        topics.add(Arrays.asList("Shopping","Product"));
-        topics.add(Arrays.asList("Sports","Rap"));
-        topics.add(Arrays.asList("Cars","Cartoons"));
     }
 
     @NonNull
@@ -90,36 +93,8 @@ public class TopicsAdapter extends RecyclerView.Adapter<TopicsAdapter.MyviewHold
 
         holder.topic_txt1.setText(topics.get(position).get(0));
         holder.topic_txt2.setText(topics.get(position).get(1));
-
-
-
-        Util.getIcon(topics.get(position).get(0)+".png").addOnSuccessListener(new OnSuccessListener<Uri>() {
-            @Override
-            public void onSuccess(Uri uri) {
-                Glide.with(context)
-                        .load(uri)
-                        .into(holder.topic_img1);
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-
-            }
-        });
-
-
-        Util.getIcon(topics.get(position).get(1)+".png").addOnSuccessListener(new OnSuccessListener<Uri>() {
-            @Override
-            public void onSuccess(Uri uri) {
-                Glide.with(context)
-                        .load(uri)
-                        .into(holder.topic_img2);
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-            }
-        });
+        holder.topic_img1.setImageResource(topicsIcon.get(position).get(0));
+        holder.topic_img2.setImageResource(topicsIcon.get(position).get(1));
 
         if(selectedTopics.contains(topics.get(position).get(0))){
             holder.topic_div1.setBackgroundResource(R.drawable.circular_bg_active);

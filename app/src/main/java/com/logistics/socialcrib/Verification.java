@@ -38,7 +38,7 @@ public class Verification extends AppCompatActivity {
 
     void goToNextActivity(){
         if(Objects.equals(Objects.requireNonNull(getIntent().getExtras()).getString(Util.LOGINTYPE), Util.LOGIN)){
-            intent = new Intent(Verification.this, UserIntro.class);
+            intent = new Intent(Verification.this, User_homepage.class);
             intent.putExtras(Objects.requireNonNull(getIntent().getExtras()));
             startActivity(intent);
         }

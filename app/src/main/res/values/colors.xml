@@ -7,4 +7,6 @@
     <color name="txt_black">#23241E</color>
     <color name="text_bg">#F9F9F9</color>
     <color name="text_hint">#9E9EA0</color>
+    <color name="active">#0BBF6B</color>
+    <color name="logout">#FF0000</color>
 </resources>

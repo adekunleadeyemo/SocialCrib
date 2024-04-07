@@ -195,7 +195,6 @@ public class UserDetails extends AppCompatActivity {
 
                         Glide.with(getApplicationContext())
                                 .load(userImgUri)
-//                                .transform(new CenterCrop(), new RoundedCorners(50))
                                 .transform(new CenterCrop(), new CircleCrop())
                                 .into(binding.userImg);
                     }

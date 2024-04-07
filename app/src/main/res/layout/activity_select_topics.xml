@@ -20,19 +20,14 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginHorizontal="20dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
             android:gravity="center"
-            android:weightSum="100"
             android:orientation="vertical"
-            android:visibility="gone"
+
             >
 
             <TextView
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="10"
+                android:layout_height="wrap_content"
                 android:textAlignment="center"
                 android:text="@string/topic_intro"
                 android:textStyle="bold"
@@ -43,23 +38,19 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/topic_recycleview"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="70"
+                android:layout_height="500dp"
                 tools:listitem="@layout/topic_view"
                 />
 
                 <LinearLayout
                     android:id="@+id/topic_action_btn"
                     android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="8"
-                    android:layout_marginVertical="10sp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="20sp"
                     android:background="@drawable/action_btn"
                     android:gravity="center"
                     android:orientation="horizontal"
                     android:padding="18sp"
-                    app:layout_constraintTop_toBottomOf="@id/user_h4a"
-
                     >
                     <ProgressBar
                         android:id="@+id/topic_action_btn_load"
@@ -89,8 +80,7 @@
                 <TextView
                     android:layout_gravity="center"
                     android:layout_width="wrap_content"
-                    android:layout_height="0dp"
-                    android:layout_weight="5"
+                    android:layout_height="wrap_content"
                     android:text="@string/user_intro_footer"
                     android:textColor="@color/accent"
                     android:textSize="18sp"

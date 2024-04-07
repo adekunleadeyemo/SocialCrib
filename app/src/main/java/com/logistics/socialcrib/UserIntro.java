@@ -116,11 +116,25 @@ public class UserIntro extends AppCompatActivity implements RecyclerViewInterfac
                 if(task.isSuccessful() && task.getResult().size()>0){
                     users = task.getResult().toObjects(User.class);
                     myAdapter.setUsers(users);
-                    rv.setAdapter(myAdapter);
-                    rv.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-                    rv.setHasFixedSize(true);
-                    userProgBar.setVisibility(View.GONE);
-                    userIntroDiv.setVisibility(View.VISIBLE);
+                   Thread setUpThread = new Thread( ()-> { Util.getAllUserImage(users).addOnCompleteListener(new OnCompleteListener<List<List<Uri>>>() {
+                        @Override
+                        public void onComplete(@NonNull Task<List<List<Uri>>> task) {
+                            myAdapter.setUserImageTable(task.getResult());
+                            myAdapter.notifyDataSetChanged();
+                            rv.setAdapter(myAdapter);
+                            rv.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+                            rv.setHasFixedSize(true);
+
+                            userProgBar.setVisibility(View.GONE);
+                            userIntroDiv.setVisibility(View.VISIBLE);
+
+                        }
+                    });
+                   });
+
+                   setUpThread.start();
+
+
                 }
                 else {
                     startActivity(intent);
@@ -147,7 +161,7 @@ public class UserIntro extends AppCompatActivity implements RecyclerViewInterfac
 
         }
 
-        myAdapter.notifyItemChanged(pos);
+        myAdapter.notifyDataSetChanged();
     }
 
 

@@ -20,6 +20,15 @@
         android:theme="@style/Theme.SocialCrib"
         tools:targetApi="31">
         <activity
+            android:name=".UserSettings"
+            android:exported="false" />
+        <activity
+            android:name=".UserProfile"
+            android:exported="false" />
+        <activity
+            android:name=".User_homepage"
+            android:exported="false" />
+        <activity
             android:name=".SelectLocation"
             android:exported="false" />
         <activity

@@ -37,6 +37,13 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyviewHolder> {
 
     List<List<User>> userTable = new ArrayList<>();
 
+    public void setUserImageTable(List<List<Uri>> userImageTable) {
+        this.userImageTable = userImageTable;
+    }
+
+    List<List<Uri>> userImageTable = new ArrayList<>();
+
+
     String currentUserId;
 
     public void setUsers(List<User> users) {
@@ -73,7 +80,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyviewHolder> {
                 }
                 userRow.add(users.get(i));
                 userRow.add(users.get(i+1));
-                userRow.add(users.get(i+2));;
+                userRow.add(users.get(i+2));
             }
             else if (i<users.size()-1){
                 if(users.get(i).getFollowers()!=null) {
@@ -113,8 +120,6 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyviewHolder> {
             userTable.add(userRow);
 
         }
-
-
     }
 
     public  void  updateFollowing(int pos, Boolean follows){
@@ -143,11 +148,11 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyviewHolder> {
         holder.userImgTxt1.setText(userTable.get(position).get(0).getFirstName());
        // StorageReference st = Util.imgUrl(userTable,position,0).getDownloadUrl();
         int fpos = position*3;
-        Util.imgUrl(userTable,position,0).getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
-            @Override
-            public void onComplete(@NonNull Task<Uri> task) {
+//        Util.imgUrl(userTable,position,0).getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
+//            @Override
+//            public void onComplete(@NonNull Task<Uri> task) {
                 Glide.with(context)
-                        .load(task.getResult())
+                        .load(userImageTable.get(position).get(0))
                         .transform(new CenterCrop(), new RoundedCorners(50))
                         .into(holder.userImg1);
                 if(Boolean.TRUE.equals(following.get(fpos))){
@@ -155,17 +160,17 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyviewHolder> {
                 }else {
                     holder.userSelect1.setImageResource(R.drawable.add_plus);
                 }
-            }
-        });
+//            }
+//        });
 
         if(userTable.get(position).size() > 1) {
 
             holder.userImgTxt2.setText(userTable.get(position).get(1).getFirstName());
-            Util.imgUrl(userTable,position,1).getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
-                @Override
-                public void onComplete(@NonNull Task<Uri> task) {
+//            Util.imgUrl(userTable,position,1).getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
+//                @Override
+//                public void onComplete(@NonNull Task<Uri> task) {
                     Glide.with(context)
-                            .load(task.getResult())
+                            .load(userImageTable.get(position).get(1))
                             .transform(new CenterCrop(), new RoundedCorners(50))
                             .into(holder.userImg2);
 
@@ -175,19 +180,19 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyviewHolder> {
                     }else {
                         holder.userSelect2.setImageResource(R.drawable.add_plus);
                     }
-                }
-            });
+//                }
+//            });
         }else {
             holder.img_div2.setVisibility(View.INVISIBLE);
         }
 
         if(userTable.get(position).size() > 2) {
             holder.userImgTxt3.setText(userTable.get(position).get(2).getFirstName());
-            Util.imgUrl(userTable,position,2).getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
-                @Override
-                public void onComplete(@NonNull Task<Uri> task) {
+//            Util.imgUrl(userTable,position,2).getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
+//                @Override
+//                public void onComplete(@NonNull Task<Uri> task) {
                     Glide.with(context)
-                            .load(task.getResult())
+                            .load(userImageTable.get(position).get(2))
                             .transform(new CenterCrop(), new RoundedCorners(50))
                             .into(holder.userImg3);
                     if(Boolean.TRUE.equals(following.get(fpos+2))){
@@ -195,8 +200,8 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyviewHolder> {
                     }else {
                         holder.userSelect3.setImageResource(R.drawable.add_plus);
                     }
-                }
-            });
+//                }
+//            });
         }else {
             holder.img_div3.setVisibility(View.INVISIBLE);
         }

@@ -21,7 +21,10 @@ import com.logistics.Utils.TopicRecycleInterface;
 import com.logistics.Utils.TopicsAdapter;
 import com.logistics.Utils.Util;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 public class SelectTopics extends AppCompatActivity implements TopicRecycleInterface {
 
@@ -50,11 +53,14 @@ public class SelectTopics extends AppCompatActivity implements TopicRecycleInter
         topicProgress = findViewById(R.id.topic_progress);
 
         myAdapter = new TopicsAdapter(getApplicationContext(), this);
+        myAdapter.setTopics(generateTopics());
+        myAdapter.setTopicsIcon(generateTopicsIcon());
         rv.setAdapter(myAdapter);
         rv.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         rv.setHasFixedSize(true);
+        myAdapter.notifyDataSetChanged();
 
-        intent = new Intent(SelectTopics.this, SelectLocation.class);
+        intent = new Intent(SelectTopics.this, User_homepage.class);
 
         DbUtil.user(DbUtil.currentId()).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
@@ -108,7 +114,35 @@ public class SelectTopics extends AppCompatActivity implements TopicRecycleInter
             myAdapter.addSelectedTopics(topic);
         }
 
-        myAdapter.notifyItemChanged(pos);
+        myAdapter.notifyDataSetChanged();
 
     }
+
+   private List<List<String>> generateTopics (){
+        List<List<String>> topics = new ArrayList<>();
+        topics.add(Arrays.asList("Nigeria","Instagram"));
+        topics.add(Arrays.asList("Bring a Drink","Startup"));
+        topics.add(Arrays.asList("Fitness","Health"));
+        topics.add(Arrays.asList("Dating","Medication"));
+        topics.add(Arrays.asList("Shopping","Product"));
+        topics.add(Arrays.asList("Sports","Rap"));
+        topics.add(Arrays.asList("Cars","Cartoons"));
+
+        return topics;
+    }
+
+
+    private List<List<Integer>> generateTopicsIcon (){
+        List<List<Integer>> topicsIcon = new ArrayList<>();
+        topicsIcon.add(Arrays.asList(R.drawable.nigeria,R.drawable.instagram));
+        topicsIcon.add(Arrays.asList(R.drawable.bring_a_drink,R.drawable.startup));
+        topicsIcon.add(Arrays.asList(R.drawable.fitness,R.drawable.health));
+        topicsIcon.add(Arrays.asList(R.drawable.dating,R.drawable.medication));
+        topicsIcon.add(Arrays.asList(R.drawable.shopping,R.drawable.product));
+        topicsIcon.add(Arrays.asList(R.drawable.sport,R.drawable.rap));
+        topicsIcon.add(Arrays.asList(R.drawable.car,R.drawable.cartoon));
+
+        return topicsIcon;
+    }
+
 }

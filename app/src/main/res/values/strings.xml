@@ -62,4 +62,11 @@
     <string name="topic">Topic</string>
     <string name="topic_intro">Choose 5 topics of your\n interest</string>
 
+    <!--    User Hompage -->
+    <string name="user_search">Search People and Crib</string>
+    <string name="follow_people">Follow People</string>
+    <string name="see_all">See All</string>
+    <string name="open_cribs">Open Cribs</string>
+    <string name="create_crib">Create a Crib</string>
+
 </resources>

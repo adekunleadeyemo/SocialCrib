@@ -5,8 +5,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-    android:gravity="center"
-        android:layout_marginVertical="10dp"
+        android:gravity="center"
+        android:layout_marginVertical="10sp"
     >
     <LinearLayout
         android:id="@+id/topic_div1"
@@ -15,15 +15,15 @@
         android:background="@drawable/circurlar_bg"
         android:orientation="horizontal"
         android:gravity="center"
-        android:paddingHorizontal="20dp"
-        android:paddingVertical="5dp"
-        android:layout_marginHorizontal="10dp"
+        android:paddingHorizontal="5sp"
+        android:paddingVertical="5sp"
+        android:layout_marginHorizontal="10sp"
         >
         <ImageView
-            android:layout_marginHorizontal="10sp"
+            android:layout_marginHorizontal="5sp"
             android:id="@+id/topic_img1"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+            android:layout_width="30sp"
+            android:layout_height="30sp"
             />
         <TextView
             android:id="@+id/topic_txt1"
@@ -43,15 +43,15 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:background="@drawable/circular_bg_active"
-        android:paddingHorizontal="20dp"
-        android:paddingVertical="5dp"
-        android:layout_marginHorizontal="10dp"
+        android:paddingHorizontal="5sp"
+        android:paddingVertical="5sp"
+        android:layout_marginHorizontal="10sp"
         >
         <ImageView
             android:id="@+id/topic_img2"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_marginHorizontal="10sp"
+            android:layout_width="30sp"
+            android:layout_height="30sp"
+            android:layout_marginHorizontal="5sp"
             />
         <TextView
             android:id="@+id/topic_txt2"
