@@ -19,6 +19,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.CenterCrop;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.storage.StorageReference;
 import com.logistics.Model.User;
@@ -27,110 +28,25 @@ import com.logistics.socialcrib.R;
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyviewHolder> {
 
     Context context;
-    List<User> users;
+    List<List<User>> userTable;
+    List<List<Uri>> userImageTable;
 
-    Map<Integer, Boolean> following = new HashMap<>();
+    public List<String> following;
 
-    public Map<Integer, Boolean> getFollowing() {
-        return following;
-    }
-
-    List<List<User>> userTable = new ArrayList<>();
 
     public void setUserImageTable(List<List<Uri>> userImageTable) {
         this.userImageTable = userImageTable;
     }
 
-    List<List<Uri>> userImageTable = new ArrayList<>();
-
-
-    String currentUserId;
-
-    public void setUsers(List<User> users) {
-        this.users = users;
-        for(int i=0; i<users.size(); i=i+3){
-            List<User> userRow = new ArrayList<>();
-
-            if(i<users.size()-2){
-                if(users.get(i).getFollowers()!=null) {
-                    following.put(i, users.get(i).
-                            getFollowers().
-                            contains(currentUserId));
-                }
-                else {
-                    following.put(i, false);
-                }
-
-                if(users.get(i+1).getFollowers()!=null) {
-                    following.put(i + 1, users.get(i + 1).
-                            getFollowers().
-                            contains(currentUserId));
-                }
-                else {
-                    following.put(i + 1, false);
-                }
-
-                if(users.get(i+2).getFollowers()!=null) {
-                    following.put(i + 2, users.get(i + 2).
-                            getFollowers().
-                            contains(currentUserId));
-                }
-                else {
-                    following.put(i + 2, false);
-                }
-                userRow.add(users.get(i));
-                userRow.add(users.get(i+1));
-                userRow.add(users.get(i+2));
-            }
-            else if (i<users.size()-1){
-                if(users.get(i).getFollowers()!=null) {
-                    following.put(i, users.get(i).
-                            getFollowers().
-                            contains(currentUserId));
-                }
-                else {
-                    following.put(i, false);
-                }
-
-                if(users.get(i+1).getFollowers()!=null) {
-                    following.put(i + 1, users.get(i + 1).
-                            getFollowers().
-                            contains(currentUserId));
-                }
-                else {
-                    following.put(i+1, false);
-                }
-
-                userRow.add(users.get(i));
-                userRow.add(users.get(i+1));
-            }
-            else {
-                if(users.get(i).getFollowers()!=null){
-                    following.put(i,users.get(i).
-                            getFollowers().
-                            contains(currentUserId));
-                }
-                else {
-                    following.put(i, false);
-                }
-
-                userRow.add(users.get(i));
-            }
-
-            userTable.add(userRow);
-
-        }
+    public void setUserTable(List<List<User>> userTable) {
+        this.userTable = userTable;
     }
 
-    public  void  updateFollowing(int pos, Boolean follows){
-        following.put(pos,follows);
-    }
 
     private final RecyclerViewInterface recyclerViewInterface;
     public MyAdapter(Context context, RecyclerViewInterface recyclerViewInterface) {
         this.context = context;
         this.recyclerViewInterface = recyclerViewInterface;
-        currentUserId = DbUtil.currentId();
 
     }
 
@@ -146,66 +62,69 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyviewHolder> {
     public void onBindViewHolder(@NonNull MyviewHolder holder, int position) {
 
         holder.userImgTxt1.setText(userTable.get(position).get(0).getFirstName());
-       // StorageReference st = Util.imgUrl(userTable,position,0).getDownloadUrl();
-        int fpos = position*3;
-//        Util.imgUrl(userTable,position,0).getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
-//            @Override
-//            public void onComplete(@NonNull Task<Uri> task) {
+        Util.getUserImage(userTable.get(position).get(0).getImgUrl()).addOnSuccessListener(new OnSuccessListener<Uri>() {
+            @Override
+            public void onSuccess(Uri uri) {
                 Glide.with(context)
-                        .load(userImageTable.get(position).get(0))
+                        .load(uri)
                         .transform(new CenterCrop(), new RoundedCorners(50))
                         .into(holder.userImg1);
-                if(Boolean.TRUE.equals(following.get(fpos))){
-                    holder.userSelect1.setImageResource(R.drawable.remove_icon);
-                }else {
-                    holder.userSelect1.setImageResource(R.drawable.add_plus);
-                }
-//            }
-//        });
+            }
+        });
+        if(following != null && following.contains(userTable.get(position).get(0).getUserId())){
+            holder.userSelect1.setImageResource(R.drawable.remove_icon);
+        }else {
+            holder.userSelect1.setImageResource(R.drawable.add_plus);
+        }
 
         if(userTable.get(position).size() > 1) {
 
             holder.userImgTxt2.setText(userTable.get(position).get(1).getFirstName());
-//            Util.imgUrl(userTable,position,1).getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
-//                @Override
-//                public void onComplete(@NonNull Task<Uri> task) {
+            Util.getUserImage(userTable.get(position).get(1).getImgUrl()).addOnSuccessListener(new OnSuccessListener<Uri>() {
+                @Override
+                public void onSuccess(Uri uri) {
                     Glide.with(context)
-                            .load(userImageTable.get(position).get(1))
+                            .load(uri)
                             .transform(new CenterCrop(), new RoundedCorners(50))
                             .into(holder.userImg2);
+                    holder.img_div2.setVisibility(View.VISIBLE);
+                }
+            });
 
-                    Map<Integer, Boolean> fol = following;
-                    if(Boolean.TRUE.equals(following.get(fpos+1))){
-                        holder.userSelect2.setImageResource(R.drawable.remove_icon);
-                    }else {
-                        holder.userSelect2.setImageResource(R.drawable.add_plus);
-                    }
-//                }
-//            });
+
+            if(following != null && following.contains(userTable.get(position).get(1).getUserId())){
+                holder.userSelect2.setImageResource(R.drawable.remove_icon);
+            }else {
+                holder.userSelect2.setImageResource(R.drawable.add_plus);
+            }
         }else {
             holder.img_div2.setVisibility(View.INVISIBLE);
         }
 
         if(userTable.get(position).size() > 2) {
+
             holder.userImgTxt3.setText(userTable.get(position).get(2).getFirstName());
-//            Util.imgUrl(userTable,position,2).getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
-//                @Override
-//                public void onComplete(@NonNull Task<Uri> task) {
+
+            Util.getUserImage(userTable.get(position).get(2).getImgUrl()).addOnSuccessListener(new OnSuccessListener<Uri>() {
+                @Override
+                public void onSuccess(Uri uri) {
                     Glide.with(context)
-                            .load(userImageTable.get(position).get(2))
+                            .load(uri)
                             .transform(new CenterCrop(), new RoundedCorners(50))
                             .into(holder.userImg3);
-                    if(Boolean.TRUE.equals(following.get(fpos+2))){
-                        holder.userSelect3.setImageResource(R.drawable.remove_icon);
-                    }else {
-                        holder.userSelect3.setImageResource(R.drawable.add_plus);
-                    }
-//                }
-//            });
+                    holder.img_div3.setVisibility(View.VISIBLE);
+                }
+            });
+
+            if(following != null && following.contains(userTable.get(position).get(2).getUserId())){
+                holder.userSelect3.setImageResource(R.drawable.remove_icon);
+            }else {
+                holder.userSelect3.setImageResource(R.drawable.add_plus);
+            }
         }else {
             holder.img_div3.setVisibility(View.INVISIBLE);
         }
-     }
+    }
 
 
     @Override
@@ -250,7 +169,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyviewHolder> {
                     int pos = (getAdapterPosition());
                     int fpos = pos*3;
                     if(pos != RecyclerView.NO_POSITION){
-                        recyclerViewInterface.onItemClick(pos,fpos,"click");
+                        recyclerViewInterface.onItemClick(pos,0,"click");
                     }
                 }
             });
@@ -260,7 +179,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyviewHolder> {
                     int pos = (getAdapterPosition());
                     int fpos = pos*3;
                     if(pos != RecyclerView.NO_POSITION){
-                        recyclerViewInterface.onItemClick(pos,fpos+1,"click");
+                        recyclerViewInterface.onItemClick(pos,1,"click");
                     }
                 }
             });
@@ -270,7 +189,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyviewHolder> {
                     int pos = (getAdapterPosition());
                     int fpos = pos*3;
                     if(pos != RecyclerView.NO_POSITION){
-                        recyclerViewInterface.onItemClick(pos,fpos+2,"click");
+                        recyclerViewInterface.onItemClick(pos,2,"click");
                     }
                 }
             });

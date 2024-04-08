@@ -14,9 +14,11 @@ import com.google.android.gms.tasks.Tasks;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.logistics.Model.User;
+import com.logistics.socialcrib.R;
 
 import java.security.spec.ECField;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
@@ -98,5 +100,52 @@ public class Util {
         return Tasks.forResult(userImageUri);
     }
 
+    public static List<List<String>> generateTopics (){
+        List<List<String>> topics = new ArrayList<>();
+        topics.add(Arrays.asList("Nigeria","Instagram"));
+        topics.add(Arrays.asList("Bring a Drink","Startup"));
+        topics.add(Arrays.asList("Fitness","Health"));
+        topics.add(Arrays.asList("Dating","Medication"));
+        topics.add(Arrays.asList("Shopping","Product"));
+        topics.add(Arrays.asList("Sports","Rap"));
+        topics.add(Arrays.asList("Cars","Cartoons"));
+
+        return topics;
+    }
+
+
+    public static  List<List<Integer>> generateTopicsIcon (){
+        List<List<Integer>> topicsIcon = new ArrayList<>();
+        topicsIcon.add(Arrays.asList(R.drawable.nigeria,R.drawable.instagram));
+        topicsIcon.add(Arrays.asList(R.drawable.bring_a_drink,R.drawable.startup));
+        topicsIcon.add(Arrays.asList(R.drawable.fitness,R.drawable.health));
+        topicsIcon.add(Arrays.asList(R.drawable.dating,R.drawable.medication));
+        topicsIcon.add(Arrays.asList(R.drawable.shopping,R.drawable.product));
+        topicsIcon.add(Arrays.asList(R.drawable.sport,R.drawable.rap));
+        topicsIcon.add(Arrays.asList(R.drawable.car,R.drawable.cartoon));
+
+        return topicsIcon;
+    }
+
+
+    public static List<List<User>> generateUsersTable(List<User> users) {
+
+        List<List<User>> userTable = new ArrayList<>();
+
+        int len = users.size();
+        for(int i=0; i<len; i=i+3){
+            List<User> userRow = new ArrayList<>();
+            for (int j=0; j<(len-i); j++){
+                if (j<3) {
+                    userRow.add(users.get(i+j));
+                }
+                else {
+                    break;
+                }
+            }
+            userTable.add(userRow);
+        }
+        return userTable;
+    }
 
 }

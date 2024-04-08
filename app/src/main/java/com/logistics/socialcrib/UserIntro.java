@@ -45,9 +45,10 @@ public class UserIntro extends AppCompatActivity implements RecyclerViewInterfac
     ProgressBar actionProg;
 
     User currentUser;
-    List<User> users;
 
     int selected = 0;
+
+    List<List<User>>userTable;
 
     Intent intent;
 
@@ -114,17 +115,17 @@ public class UserIntro extends AppCompatActivity implements RecyclerViewInterfac
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if(task.isSuccessful() && task.getResult().size()>0){
-                    users = task.getResult().toObjects(User.class);
-                    myAdapter.setUsers(users);
+                   List<User> users = task.getResult().toObjects(User.class);
+                    userTable = Util.generateUsersTable(users);
+                    myAdapter.setUserTable(userTable);
                    Thread setUpThread = new Thread( ()-> { Util.getAllUserImage(users).addOnCompleteListener(new OnCompleteListener<List<List<Uri>>>() {
                         @Override
                         public void onComplete(@NonNull Task<List<List<Uri>>> task) {
                             myAdapter.setUserImageTable(task.getResult());
-                            myAdapter.notifyDataSetChanged();
+//                            myAdapter.notifyDataSetChanged();
                             rv.setAdapter(myAdapter);
                             rv.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
                             rv.setHasFixedSize(true);
-
                             userProgBar.setVisibility(View.GONE);
                             userIntroDiv.setVisibility(View.VISIBLE);
 
@@ -145,23 +146,26 @@ public class UserIntro extends AppCompatActivity implements RecyclerViewInterfac
     }
 
 
-
     @Override
-    public void onItemClick(int pos, int position, String event) {
+    public void onItemClick(int pos, int pos2, String event) {
 
-        if(Boolean.FALSE.equals(myAdapter.getFollowing().get(position))){
-            myAdapter.updateFollowing(position,true);
-            currentUser.addFollowing(users.get(position).getUserId());
-            selected = selected +1;
+
+        if(myAdapter.following == null){
+            myAdapter.following = new ArrayList<>();
         }
-        else{
-            myAdapter.updateFollowing(position,false);
-            currentUser.removeFollowing(users.get(position).getUserId());
+
+        if(myAdapter.following.contains( userTable.get(pos).get(pos2).getUserId())){
+            myAdapter.following.remove(userTable.get(pos).get(pos2).getUserId());
+            currentUser.removeFollowing(userTable.get(pos).get(pos2).getUserId());
             selected = selected - 1;
-
+        }
+        else {
+            myAdapter.following.add(userTable.get(pos).get(pos2).getUserId());
+            selected = selected + 1;
+            currentUser.addFollowing(userTable.get(pos).get(pos2).getUserId());
         }
 
-        myAdapter.notifyDataSetChanged();
+        myAdapter.notifyItemChanged(pos);
     }
 
 
