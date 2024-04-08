@@ -43,20 +43,27 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <FrameLayout
+            <TextView
+                android:visibility="gone"
                 android:id="@+id/notification_active"
-                android:layout_width="12sp"
-                android:layout_height="12sp"
-                android:layout_marginStart="-19sp"
-                android:background="@drawable/circurlar_bg"
+                android:layout_width="25sp"
+                android:layout_height="25sp"
+                android:layout_marginStart="-21sp"
+                android:background="@drawable/circular_bg_active"
                 android:backgroundTint="@color/accent"
+                android:text="9"
+                android:textAlignment="center"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:textColor="@color/text_bg"
                 app:layout_constraintStart_toEndOf="@id/user_notification"
                 app:layout_constraintTop_toTopOf="@id/user_notification" />
 
             <ImageView
+                android:translationZ="-2dp"
                 android:id="@+id/user_notification"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
                 android:layout_marginHorizontal="15sp"
                 android:src="@drawable/notification_bell"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -132,11 +139,12 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.recyclerview.widget.RecyclerView
-            android:layout_width="match_parent"
-            android:layout_height="100dp"
-
+            android:id="@+id/user_homepage_rv"
+            android:layout_width="wrap_content"
+            android:layout_height="110dp"
             android:layout_marginVertical="20sp"
-        />
+            android:orientation="horizontal"
+            tools:listitem="@layout/user_list_view" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"

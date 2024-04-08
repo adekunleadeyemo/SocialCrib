@@ -12,13 +12,20 @@ public class DbUtil {
     }
 
     public static DocumentReference user(String id){
-        return FirebaseFirestore.getInstance().collection("users").document(id);
+        return users().document(id);
     }
 
     public static CollectionReference users(){
         return FirebaseFirestore.getInstance().collection("users");
     }
 
+    public static CollectionReference notifications(){
+        return FirebaseFirestore.getInstance().collection("notification");
+    }
+
+    public static DocumentReference notification(String id){
+        return notifications().document(id);
+    }
 }
 
 

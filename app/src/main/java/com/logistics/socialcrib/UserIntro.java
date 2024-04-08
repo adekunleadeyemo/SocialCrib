@@ -20,8 +20,10 @@ import android.widget.TextView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.logistics.Model.Notification;
 import com.logistics.Model.User;
 import com.logistics.Utils.DbUtil;
 import com.logistics.Utils.MyAdapter;
@@ -71,6 +73,7 @@ public class UserIntro extends AppCompatActivity implements RecyclerViewInterfac
             actionTxt.setVisibility(View.GONE);
             actionProg.setVisibility(View.VISIBLE);
 
+
             if(selected > 0){
                 DbUtil.user(DbUtil.currentId()).set(currentUser).addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
@@ -82,7 +85,21 @@ public class UserIntro extends AppCompatActivity implements RecyclerViewInterfac
                                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                                         List<User> followers = task.getResult().toObjects(User.class);
                                         followers.forEach(e -> {
+                                            Notification notification = new Notification();
+                                            notification.setId(e.getUserId()+currentUser.getUserId());
+                                            notification.setSender(e.getUserId());
+                                            notification.setMessage("Followed you!");
+                                            notification.setReciever(currentUser.getUserId());
+                                            notification.setTimestamp(Timestamp.now());
+                                            e.addNotification(notification.getId());
                                             e.addFollower(currentUser.getUserId());
+
+                                            DbUtil.notification(notification.getId()).set(notification).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                @Override
+                                                public void onComplete(@NonNull Task<Void> task) {
+                                                    Util.toast(getApplicationContext(),"upadated Notification");
+                                                }
+                                            });
                                             DbUtil.user(e.getUserId()).set(e).addOnCompleteListener(new OnCompleteListener<Void>() {
                                                 @Override
                                                 public void onComplete(@NonNull Task<Void> task) {

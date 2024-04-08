@@ -28,9 +28,9 @@
               <option name="connection">
                 <ConnectionSetting>
                   <option name="appId" value="com.logistics.socialcrib" />
-                  <option name="mobileSdkAppId" value="1:435276367704:android:9cbf82edc836b7621f472d" />
-                  <option name="projectId" value="socialcrib-228a9" />
-                  <option name="projectNumber" value="435276367704" />
+                  <option name="mobileSdkAppId" value="1:825635465736:android:5cf678a825f6eb2350bfbd" />
+                  <option name="projectId" value="social-crib" />
+                  <option name="projectNumber" value="825635465736" />
                 </ConnectionSetting>
               </option>
               <option name="signal" value="SIGNAL_UNSPECIFIED" />

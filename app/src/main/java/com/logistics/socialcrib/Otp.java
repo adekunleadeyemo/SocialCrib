@@ -204,7 +204,6 @@ public class Otp extends AppCompatActivity {
                     DbUtil.user(DbUtil.currentId()).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                         @Override
                         public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                            Boolean fs = task.getResult().exists();
                             if (task.isSuccessful() && task.getResult().exists()) {
                                 intent.putExtra(Util.LOGINTYPE, Util.LOGIN);
                                 binding.otpProgressBar.setVisibility(View.INVISIBLE);

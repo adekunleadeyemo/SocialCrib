@@ -20,6 +20,9 @@
         android:theme="@style/Theme.SocialCrib"
         tools:targetApi="31">
         <activity
+            android:name=".NotificationActivity"
+            android:exported="false" />
+        <activity
             android:name=".UserSettings"
             android:exported="false" />
         <activity

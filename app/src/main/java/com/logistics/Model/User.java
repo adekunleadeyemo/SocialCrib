@@ -25,6 +25,28 @@ public class User {
 
     private List<String> topics;
 
+    public List<String> notifications;
+
+    public List<String> getNotifications() {
+        return notifications;
+    }
+
+    public void setNotifications(List<String> notifications) {
+        this.notifications = notifications;
+    }
+
+    public void addNotification(String Id){
+        if(notifications == null){
+            notifications = new ArrayList<>();
+        }
+
+        notifications.add(Id);
+    }
+
+    public void resetNotification(String Id){
+        notifications = null;
+    }
+
     public List<String> getTopics() {
         return topics;
     }
@@ -41,38 +63,38 @@ public class User {
         this.following = following;
     }
 
-    public void addFollowing(String id) {
+    public void addFollowing(String Id) {
         if(following == null){
             following = new ArrayList<>();
-            following.add(id);
+            following.add(Id);
         }
         else {
-            following.add(id);
+            following.add(Id);
         }
 
     }
 
-    public void removeFollowing(String id) {
+    public void removeFollowing(String Id) {
         if(following != null){
-            following.remove(id);
+            following.remove(Id);
         }
 
     }
 
-    public void addFollower(String id) {
+    public void addFollower(String Id) {
         if(followers == null){
             followers = new ArrayList<>();
-            followers.add(id);
+            followers.add(Id);
         }
         else {
-            followers.add(id);
+            followers.add(Id);
         }
 
     }
 
-    public void removeFollower(String id) {
+    public void removeFollower(String Id) {
         if(followers != null){
-            followers.remove(id);
+            followers.remove(Id);
         }
 
     }
