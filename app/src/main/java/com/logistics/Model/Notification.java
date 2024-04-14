@@ -3,7 +3,7 @@ package com.logistics.Model;
 import com.google.firebase.Timestamp;
 
 public class Notification {
-    private String id;
+    private String Id;
     private String sender;
     private String reciever;
     private String message;
@@ -13,12 +13,21 @@ public class Notification {
     public  Notification (){
 
     }
-    public String getId() {
-        return id;
+
+    public Notification(String id, String sender, String reciever, String message, Timestamp timestamp) {
+        Id = id;
+        this.sender = sender;
+        this.reciever = reciever;
+        this.message = message;
+        this.timestamp = timestamp;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public String getId() {
+        return Id;
+    }
+
+    public void setId(String Id) {
+        this.Id = Id;
     }
 
     public String getSender() {
@@ -53,8 +62,8 @@ public class Notification {
         this.summary = summary;
     }
 
-    public String getTimestamp() {
-        return String.valueOf(timestamp.compareTo(Timestamp.now()));
+    public Timestamp getTimestamp() {
+        return timestamp;
     }
 
     public void setTimestamp(Timestamp timestamp) {

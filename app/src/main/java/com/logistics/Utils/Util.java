@@ -19,7 +19,9 @@ import com.logistics.socialcrib.R;
 import java.security.spec.ECField;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
 public class Util {
@@ -146,6 +148,27 @@ public class Util {
             userTable.add(userRow);
         }
         return userTable;
+    }
+
+    public static Task<Map<String,Uri>>getAllUserImageAsMap(List<User> users){
+
+        Map<String, Uri> userImages = new HashMap<>();
+        users.forEach(u ->
+                {
+                    try {
+                        Tasks.await(getUserImage(u.getImgUrl()).addOnCompleteListener(new OnCompleteListener<Uri>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Uri> task) {
+                                userImages.put(u.getUserId(),task.getResult());
+                            }
+                        }));
+                    } catch (Exception e) {
+                        String err = e.toString();
+                    }
+                }
+        );
+
+        return Tasks.forResult(userImages);
     }
 
 }

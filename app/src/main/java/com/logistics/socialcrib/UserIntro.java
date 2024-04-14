@@ -85,12 +85,9 @@ public class UserIntro extends AppCompatActivity implements RecyclerViewInterfac
                                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                                         List<User> followers = task.getResult().toObjects(User.class);
                                         followers.forEach(e -> {
-                                            Notification notification = new Notification();
-                                            notification.setId(e.getUserId()+currentUser.getUserId());
-                                            notification.setSender(e.getUserId());
-                                            notification.setMessage("Followed you!");
-                                            notification.setReciever(currentUser.getUserId());
-                                            notification.setTimestamp(Timestamp.now());
+                                            Notification notification = new Notification(e.getUserId()+currentUser.getUserId(),
+                                                    currentUser.getUserId(),e.getUserId(),"Followed you!",Timestamp.now());
+
                                             e.addNotification(notification.getId());
                                             e.addFollower(currentUser.getUserId());
 

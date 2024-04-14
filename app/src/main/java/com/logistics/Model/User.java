@@ -43,7 +43,7 @@ public class User {
         notifications.add(Id);
     }
 
-    public void resetNotification(String Id){
+    public void resetNotification(){
         notifications = null;
     }
 

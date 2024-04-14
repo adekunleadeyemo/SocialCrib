@@ -9,4 +9,5 @@
     <color name="text_hint">#9E9EA0</color>
     <color name="active">#0BBF6B</color>
     <color name="logout">#FF0000</color>
+    <color name="new_notification">#FEF5E6</color>
 </resources>

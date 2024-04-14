@@ -141,7 +141,7 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/user_homepage_rv"
             android:layout_width="wrap_content"
-            android:layout_height="110dp"
+            android:layout_height="130dp"
             android:layout_marginVertical="20sp"
             android:orientation="horizontal"
             tools:listitem="@layout/user_list_view" />

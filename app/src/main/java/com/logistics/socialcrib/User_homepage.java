@@ -37,17 +37,12 @@ public class User_homepage extends AppCompatActivity  implements RecyclerViewInt
 
     ImageView profImage;
     User currentUser;
-
     List<User> users;
     ProgressBar userHomeProg;
     LinearLayout userHomeDiv;
-
     MyAdapter myAdapter;
-
     TextView notification;
-
     ImageView notificationIcon;
-
     RecyclerView homePagRv;
 
     @Override
@@ -79,7 +74,6 @@ public class User_homepage extends AppCompatActivity  implements RecyclerViewInt
                 public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
 
                     users = queryDocumentSnapshots.toObjects(User.class);
-
                     currentUser = users.stream().filter(u -> u.getUserId().equals(DbUtil.currentId())).findFirst().get();
 
                     if(currentUser.getNotifications() != null && currentUser.getNotifications().size() > 0){
@@ -92,8 +86,8 @@ public class User_homepage extends AppCompatActivity  implements RecyclerViewInt
                         }
                     }
 
-                    List<User> following = users.stream().filter(u -> u.getFollowers() != null && !u.getFollowers().
-                            contains(currentUser.getUserId())).collect(Collectors.toList());
+                    List<User> following = users.stream().filter(u -> u.getFollowers() == null | (u.getFollowers() != null && !u.getFollowers().
+                            contains(currentUser.getUserId()) && !Objects.equals(u.getUserId(), currentUser.getUserId()))).collect(Collectors.toList());
                     myAdapter.setUserTable(Util.generateUsersTable(following));
                     Thread setUpThread = new Thread( ()-> {  Util.getAllUserImage(following).addOnCompleteListener(new OnCompleteListener<List<List<Uri>>>() {
                         @Override

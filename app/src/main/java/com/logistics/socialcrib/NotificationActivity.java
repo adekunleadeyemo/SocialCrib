@@ -22,7 +22,10 @@ import com.logistics.Utils.NotificationInterface;
 import com.logistics.Utils.Util;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class NotificationActivity extends AppCompatActivity implements NotificationInterface {
@@ -38,6 +41,8 @@ public class NotificationActivity extends AppCompatActivity implements Notificat
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_notification);
 
+        rv = findViewById(R.id.notification_recycler_view);
+
         myAdapter = new NotificationAdapter(getApplicationContext(), this);
     DbUtil.user(DbUtil.currentId()).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
         @Override
@@ -45,48 +50,49 @@ public class NotificationActivity extends AppCompatActivity implements Notificat
             currentUser = task.getResult().toObject(User.class);
             assert currentUser != null;
             if(currentUser.notifications != null) {
-                DbUtil.notifications().whereEqualTo("reciever", DbUtil.currentId()).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                myAdapter.setNewNotifications(currentUser.notifications);
+                currentUser.resetNotification();
+                DbUtil.user(currentUser.getUserId()).set(currentUser);
+            }
+                DbUtil.notifications().
+                        whereEqualTo("reciever", DbUtil.currentId()).get().
+                        addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
-                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                        myAdapter.setNotifications(queryDocumentSnapshots.toObjects(Notification.class));
-                        DbUtil.users().whereIn("sender", queryDocumentSnapshots.
-                                toObjects(Notification.class).stream().
-                                map(c -> c.getSender()).collect(Collectors.toList())).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-                            @Override
-                            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                                myAdapter.setUsers(queryDocumentSnapshots.toObjects(User.class));
-                                Thread setupThread = new Thread(() -> {
-                                    Util.getAllUserImage(queryDocumentSnapshots.toObjects(User.class))
-                                            .addOnCompleteListener(new OnCompleteListener<List<List<Uri>>>() {
-                                                @Override
-                                                public void onComplete(@NonNull Task<List<List<Uri>>> task) {
-                                                    List<Uri> uris = new ArrayList<>();
-                                                    task.getResult().forEach(t -> uris.addAll(t));
-                                                    myAdapter.setUserImages(uris);
-                                                    rv.setAdapter(myAdapter);
-                                                    rv.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-                                                    rv.setHasFixedSize(true);
-                                                }
-                                            });
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+
+                        List<Notification> notifications = task.getResult().
+                                toObjects(Notification.class).stream().sorted(new Comparator<Notification>() {
+                                    @Override
+                                    public int compare(Notification o1, Notification o2) {
+
+                                        return Long.compare(o2.getTimestamp().getSeconds(), o1.getTimestamp().getSeconds());
+                                    }
+                                }).collect(Collectors.toList());
+                            myAdapter.setNotifications(notifications);
+                            List<String> senders = notifications.stream().map(c -> c.getSender()).collect(Collectors.toList());
+                            DbUtil.users().whereIn("userId", senders ).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                                @Override
+                                public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                                    myAdapter.setUsers(queryDocumentSnapshots.toObjects(User.class));
+
+                                    Thread setupThread = new Thread(() -> { Util.getAllUserImageAsMap(queryDocumentSnapshots.toObjects(User.class))
+                                        .addOnCompleteListener(new OnCompleteListener<Map<String, Uri>>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<Map<String, Uri>> task) {
+                                            myAdapter.setUserImages(task.getResult());
+                                            rv.setAdapter(myAdapter);
+                                            rv.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+                                            rv.setHasFixedSize(true);
+                                        }
+                                    });
                                 });
-                                setupThread.start();
-                            }
-                        }).addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
+                        setupThread.start();
 
-                            }
-                        });
-
-
-                    }
-                }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
+                                }
+                            });
 
                     }
                 });
-            }
         }
     });
 

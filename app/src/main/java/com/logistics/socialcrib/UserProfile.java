@@ -2,6 +2,8 @@ package com.logistics.socialcrib;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -17,11 +19,13 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.logistics.Model.User;
 import com.logistics.Utils.DbUtil;
+import com.logistics.Utils.TopicRecycleInterface;
+import com.logistics.Utils.TopicsAdapter;
 import com.logistics.Utils.Util;
 
 import java.util.Objects;
 
-public class UserProfile extends AppCompatActivity {
+public class UserProfile extends AppCompatActivity implements TopicRecycleInterface {
 
     private ImageView profileImg;
     private TextView following;
@@ -33,7 +37,11 @@ public class UserProfile extends AppCompatActivity {
 
     private  ImageView userSetting;
 
+    RecyclerView topicRv;
+
     User currentUser;
+
+    TopicsAdapter myAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +55,9 @@ public class UserProfile extends AppCompatActivity {
         uname = findViewById(R.id.uname);
         userBio = findViewById(R.id.bio);
         userSetting = findViewById(R.id.setting_btn);
+        topicRv = findViewById(R.id.fav_topic_rv);
+
+        myAdapter = new TopicsAdapter(getApplicationContext(), this);
 
         DbUtil.user(DbUtil.currentId()).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
@@ -74,6 +85,14 @@ public class UserProfile extends AppCompatActivity {
                 else {
                     following.setText("0");
                 }
+
+                myAdapter.setMyTopics(currentUser.getTopics());
+                myAdapter.setTopics(Util.generateTopics());
+                myAdapter.setTopicsIcon(Util.generateTopicsIcon());
+                topicRv.setLayoutManager(new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.HORIZONTAL, false));
+                topicRv.setHasFixedSize(true);
+                topicRv.setAdapter(myAdapter);
+                myAdapter.notifyDataSetChanged();
 
                 Util.getUserImage(currentUser.getImgUrl()).addOnSuccessListener(new OnSuccessListener<Uri>() {
                     @Override
@@ -103,5 +122,10 @@ public class UserProfile extends AppCompatActivity {
 //            intent.putExtras(Objects.requireNonNull(getIntent().getExtras()));
             startActivity(intent);
         });
+    }
+
+    @Override
+    public void itemClick(int pos, String topic) {
+
     }
 }

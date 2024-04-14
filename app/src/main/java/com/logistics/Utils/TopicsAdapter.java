@@ -33,6 +33,12 @@ public class TopicsAdapter extends RecyclerView.Adapter<TopicsAdapter.MyviewHold
     Context context;
     List<List<String>> topics;
 
+    public void setMyTopics(List<String> myTopics) {
+        this.myTopics = myTopics;
+    }
+
+    List<String> myTopics;
+
     public void setTopics(List<List<String>> topics) {
         this.topics = topics;
     }
@@ -91,27 +97,38 @@ public class TopicsAdapter extends RecyclerView.Adapter<TopicsAdapter.MyviewHold
     @Override
     public void onBindViewHolder(@NonNull MyviewHolder holder, int position) {
 
-        holder.topic_txt1.setText(topics.get(position).get(0));
-        holder.topic_txt2.setText(topics.get(position).get(1));
-        holder.topic_img1.setImageResource(topicsIcon.get(position).get(0));
-        holder.topic_img2.setImageResource(topicsIcon.get(position).get(1));
-
-        if(selectedTopics.contains(topics.get(position).get(0))){
-            holder.topic_div1.setBackgroundResource(R.drawable.circular_bg_active);
-            holder.topic_txt1.setTextColor(Color.parseColor("#FBFDFF"));
-        }else{
-            holder.topic_div1.setBackgroundResource(R.drawable.circurlar_bg);
-            holder.topic_txt1.setTextColor(Color.parseColor("#9E9EA0"));
+        if(myTopics == null || myTopics.contains(topics.get(position).get(0))){
+            holder.topic_div1.setVisibility(View.VISIBLE);
+            holder.topic_txt1.setText(topics.get(position).get(0));
+            holder.topic_img1.setImageResource(topicsIcon.get(position).get(0));
+            if(selectedTopics.contains(topics.get(position).get(0))){
+                holder.topic_div1.setBackgroundResource(R.drawable.circular_bg_active);
+                holder.topic_txt1.setTextColor(Color.parseColor("#FBFDFF"));
+            }else{
+                holder.topic_div1.setBackgroundResource(R.drawable.circurlar_bg);
+                holder.topic_txt1.setTextColor(Color.parseColor("#9E9EA0"));
+            }
+        }
+        else {
+            holder.topic_div1.setVisibility(View.GONE);
         }
 
-        if(selectedTopics.contains(topics.get(position).get(1))){
-            holder.topic_div2.setBackgroundResource(R.drawable.circular_bg_active);
-            holder.topic_txt2.setTextColor(Color.parseColor("#FBFDFF"));
-        }else{
-            holder.topic_div2.setBackgroundResource(R.drawable.circurlar_bg);
-            holder.topic_txt2.setTextColor(Color.parseColor("#9E9EA0"));
-        }
 
+       if(myTopics == null || myTopics.contains(topics.get(position).get(1))) {
+           holder.topic_div2.setVisibility(View.VISIBLE);
+           holder.topic_txt2.setText(topics.get(position).get(1));
+           holder.topic_img2.setImageResource(topicsIcon.get(position).get(1));
+           if (selectedTopics.contains(topics.get(position).get(1))) {
+               holder.topic_div2.setBackgroundResource(R.drawable.circular_bg_active);
+               holder.topic_txt2.setTextColor(Color.parseColor("#FBFDFF"));
+           } else {
+               holder.topic_div2.setBackgroundResource(R.drawable.circurlar_bg);
+               holder.topic_txt2.setTextColor(Color.parseColor("#9E9EA0"));
+           }
+       }
+       else {
+           holder.topic_div2.setVisibility(View.GONE);
+       }
 
     }
 

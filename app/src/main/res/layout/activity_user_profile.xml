@@ -196,8 +196,10 @@
             android:id="@+id/fav_topic_rv"
             app:layout_constraintTop_toBottomOf="@id/topic_section"
             android:layout_width="match_parent"
-            android:layout_height="60dp"
+            android:orientation="horizontal"
+            android:layout_height="80dp"
             android:layout_marginTop="10sp"
+            tools:listitem="@layout/topic_view"
         />
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/crib_join"
@@ -236,6 +238,7 @@
             android:layout_width="match_parent"
             android:layout_height="100dp"
             android:layout_marginTop="10sp"
+            tools:listitem="@layout/topic_view"
             />
         <LinearLayout
             android:id="@+id/user_link"
@@ -256,7 +259,7 @@
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:background="@drawable/full_circle_bg"
-                    android:src="@drawable/instagram"
+                    android:src="@drawable/website"
                     android:padding="5sp"
                     />
                 <TextView
@@ -276,7 +279,7 @@
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:background="@drawable/full_circle_bg"
-                    android:src="@drawable/instagram"
+                    android:src="@drawable/facebook"
                     android:padding="5sp"
                     />
                 <TextView
@@ -313,7 +316,7 @@
             android:id="@+id/edit_profile_action"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="40sp"
+            android:layout_marginVertical="30sp"
             android:background="@drawable/action_btn"
             android:gravity="center"
             android:orientation="horizontal"
