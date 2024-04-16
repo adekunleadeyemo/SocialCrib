@@ -1,18 +1,14 @@
 package com.logistics.socialcrib;
 
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -29,14 +25,12 @@ import com.logistics.Utils.DbUtil;
 import com.logistics.Utils.MyAdapter;
 import com.logistics.Utils.RecyclerViewInterface;
 import com.logistics.Utils.Util;
-import com.logistics.socialcrib.databinding.ActivityUserIntroBinding;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
+import java.util.Objects;
 
-public class UserIntro extends AppCompatActivity implements RecyclerViewInterface {
+public class SelectUsers extends AppCompatActivity implements RecyclerViewInterface {
 
    LinearLayout btn_click;
     MyAdapter myAdapter;
@@ -57,7 +51,7 @@ public class UserIntro extends AppCompatActivity implements RecyclerViewInterfac
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_user_intro);
+        setContentView(R.layout.activity_select_users);
         RecyclerView rv = findViewById(R.id.intro_recycler);
         userIntroDiv  = findViewById(R.id.user_intro_div);
         userProgBar = findViewById(R.id.user_intro_progress);
@@ -65,13 +59,21 @@ public class UserIntro extends AppCompatActivity implements RecyclerViewInterfac
        actionTxt = findViewById(R.id.user_action_btn_load_txt);
         actionProg = findViewById(R.id.user_action_btn_load);
         myAdapter = new MyAdapter(getApplicationContext(), this);
-        intent = new Intent(UserIntro.this, SelectTopics.class);
+        intent = new Intent(SelectUsers.this, SelectTopics.class);
         intent.putExtras(getIntent().getExtras());
 
         btn_click.setOnClickListener(e ->{
 
             actionTxt.setVisibility(View.GONE);
             actionProg.setVisibility(View.VISIBLE);
+
+            OnBackPressedCallback callback = new OnBackPressedCallback(true /* enabled by default */) {
+                @Override
+                public void handleOnBackPressed() {
+                }
+            };
+            this.getOnBackPressedDispatcher().addCallback(this, callback);
+
 
 
             if(selected > 0){
@@ -94,13 +96,11 @@ public class UserIntro extends AppCompatActivity implements RecyclerViewInterfac
                                             DbUtil.notification(notification.getId()).set(notification).addOnCompleteListener(new OnCompleteListener<Void>() {
                                                 @Override
                                                 public void onComplete(@NonNull Task<Void> task) {
-                                                    Util.toast(getApplicationContext(),"upadated Notification");
                                                 }
                                             });
                                             DbUtil.user(e.getUserId()).set(e).addOnCompleteListener(new OnCompleteListener<Void>() {
                                                 @Override
                                                 public void onComplete(@NonNull Task<Void> task) {
-                                                    Util.toast(getApplicationContext(),"Completed Add Following!");
                                                     startActivity(intent);
                                                 }
                                             });

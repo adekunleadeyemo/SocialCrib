@@ -20,7 +20,7 @@
         android:theme="@style/Theme.SocialCrib"
         tools:targetApi="31">
         <activity
-            android:name=".NotificationActivity"
+            android:name=".UserNotification"
             android:exported="false" />
         <activity
             android:name=".UserSettings"
@@ -29,7 +29,7 @@
             android:name=".UserProfile"
             android:exported="false" />
         <activity
-            android:name=".User_homepage"
+            android:name=".UserFeed"
             android:exported="false" />
         <activity
             android:name=".SelectLocation"
@@ -38,7 +38,7 @@
             android:name=".SelectTopics"
             android:exported="false" />
         <activity
-            android:name=".UserIntro"
+            android:name=".SelectUsers"
             android:exported="false" />
         <activity
             android:name=".Verification"

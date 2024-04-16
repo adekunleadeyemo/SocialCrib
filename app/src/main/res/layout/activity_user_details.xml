@@ -8,6 +8,7 @@
     tools:context=".UserDetails">
 
     <ProgressBar
+        android:visibility="gone"
         android:id="@+id/details_prog"
         android:layout_width="match_parent"
         android:layout_height="100dp"
@@ -22,7 +23,6 @@
 
     <androidx.core.widget.NestedScrollView
         android:id="@+id/details_div"
-        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -312,13 +312,6 @@
                     android:textColor="@color/white"
                     android:textSize="18sp"
                     android:textStyle="bold" />
-
-                <ImageView
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:layout_marginHorizontal="5dp"
-                    android:src="@drawable/arrow_fwd_body"
-                    app:tint="@color/white" />
             </LinearLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
 

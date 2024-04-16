@@ -28,8 +28,8 @@ import com.logistics.socialcrib.R;
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyviewHolder> {
 
     Context context;
-    List<List<User>> userTable;
-    List<List<Uri>> userImageTable;
+     List<List<User>> userTable;
+     List<List<Uri>> userImageTable;
 
     public List<String> following;
 
@@ -42,7 +42,18 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyviewHolder> {
         this.userTable = userTable;
     }
 
+    public void removeUser(int pos, int pos2){
 
+        if(userTable.get(pos).size() == 1){
+            userTable.remove(pos);
+            userImageTable.remove(pos);
+        }
+        else {
+            userTable.get(pos).remove(pos2);
+            userImageTable.get(pos).remove(pos2);
+        }
+
+    }
     private final RecyclerViewInterface recyclerViewInterface;
     public MyAdapter(Context context, RecyclerViewInterface recyclerViewInterface) {
         this.context = context;
@@ -98,7 +109,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyviewHolder> {
                 holder.userSelect2.setImageResource(R.drawable.add_plus);
             }
         }else {
-            holder.img_div2.setVisibility(View.INVISIBLE);
+            holder.img_div2.setVisibility(View.GONE);
         }
 
         if(userTable.get(position).size() > 2) {
@@ -122,7 +133,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyviewHolder> {
                 holder.userSelect3.setImageResource(R.drawable.add_plus);
             }
         }else {
-            holder.img_div3.setVisibility(View.INVISIBLE);
+            holder.img_div3.setVisibility(View.GONE);
         }
     }
 

@@ -43,6 +43,8 @@ public class UserProfile extends AppCompatActivity implements TopicRecycleInterf
 
     TopicsAdapter myAdapter;
 
+    ImageView bkArr;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,7 +59,11 @@ public class UserProfile extends AppCompatActivity implements TopicRecycleInterf
         userSetting = findViewById(R.id.setting_btn);
         topicRv = findViewById(R.id.fav_topic_rv);
 
+        bkArr = findViewById(R.id.user_profile_bk);
+
         myAdapter = new TopicsAdapter(getApplicationContext(), this);
+
+        bkArr.setOnClickListener( e -> startActivity(new Intent(UserProfile.this, UserFeed.class)));
 
         DbUtil.user(DbUtil.currentId()).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override

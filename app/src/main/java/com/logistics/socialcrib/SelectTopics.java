@@ -1,5 +1,6 @@
 package com.logistics.socialcrib;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -16,7 +17,6 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.logistics.Model.User;
 import com.logistics.Utils.DbUtil;
-import com.logistics.Utils.MyAdapter;
 import com.logistics.Utils.TopicRecycleInterface;
 import com.logistics.Utils.TopicsAdapter;
 import com.logistics.Utils.Util;
@@ -24,7 +24,7 @@ import com.logistics.Utils.Util;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
+import java.util.Objects;
 
 public class SelectTopics extends AppCompatActivity implements TopicRecycleInterface {
 
@@ -52,6 +52,9 @@ public class SelectTopics extends AppCompatActivity implements TopicRecycleInter
 
         topicProgress = findViewById(R.id.topic_progress);
 
+        topicDiv.setVisibility(View.GONE);
+        topicProgress.setVisibility(View.VISIBLE);
+
         myAdapter = new TopicsAdapter(getApplicationContext(), this);
         myAdapter.setTopics(generateTopics());
         myAdapter.setTopicsIcon(generateTopicsIcon());
@@ -60,7 +63,15 @@ public class SelectTopics extends AppCompatActivity implements TopicRecycleInter
         rv.setHasFixedSize(true);
         myAdapter.notifyDataSetChanged();
 
-        intent = new Intent(SelectTopics.this, User_homepage.class);
+        intent = new Intent(SelectTopics.this, UserFeed.class);
+
+        OnBackPressedCallback callback = new OnBackPressedCallback(true /* enabled by default */) {
+            @Override
+            public void handleOnBackPressed() {
+
+            }
+        };
+        this.getOnBackPressedDispatcher().addCallback(this, callback);
 
         DbUtil.user(DbUtil.currentId()).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
@@ -72,7 +83,7 @@ public class SelectTopics extends AppCompatActivity implements TopicRecycleInter
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                Util.toast(getApplicationContext(), "Error Loading User");
+                Util.toast(getApplicationContext(), e.getMessage());
                 topicProgress.setVisibility(View.GONE);
                 topicDiv.setVisibility(View.VISIBLE);
             }
@@ -91,7 +102,7 @@ public class SelectTopics extends AppCompatActivity implements TopicRecycleInter
                 }).addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        Util.toast(getApplicationContext(), "There was an error completing this");
+                        Util.toast(getApplicationContext(), e.getMessage());
                     }
                 });
             } else if (myAdapter.getSelectedTopics() != null){
@@ -121,7 +132,7 @@ public class SelectTopics extends AppCompatActivity implements TopicRecycleInter
    private List<List<String>> generateTopics (){
         List<List<String>> topics = new ArrayList<>();
         topics.add(Arrays.asList("Nigeria","Instagram"));
-        topics.add(Arrays.asList("Bring a Drink","Startup"));
+        topics.add(Arrays.asList("Bring a Drink","Jet"));
         topics.add(Arrays.asList("Fitness","Health"));
         topics.add(Arrays.asList("Dating","Medication"));
         topics.add(Arrays.asList("Shopping","Product"));

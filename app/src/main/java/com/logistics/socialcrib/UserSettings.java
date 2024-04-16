@@ -2,6 +2,7 @@ package com.logistics.socialcrib;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -31,6 +32,8 @@ public class UserSettings extends AppCompatActivity {
 
     User currentUser;
 
+    ConstraintLayout userProf;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,6 +43,7 @@ public class UserSettings extends AppCompatActivity {
         fName = findViewById(R.id.setting_name);
         userName = findViewById(R.id.setting_uname);
         logoutBtn = findViewById(R.id.setting_action);
+        userProf = findViewById(R.id.user_setting_div);
 
         DbUtil.user(DbUtil.currentId()).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
@@ -80,6 +84,8 @@ public class UserSettings extends AppCompatActivity {
             Intent intent = new Intent(UserSettings.this, Home.class);
             startActivity(intent);
         });
+
+        userProf.setOnClickListener( e -> startActivity(new Intent(UserSettings.this, UserFeed.class)));
 
     }
 }

@@ -27,18 +27,17 @@ public class Verification extends AppCompatActivity {
         OnBackPressedCallback callback = new OnBackPressedCallback(true /* enabled by default */) {
             @Override
             public void handleOnBackPressed() {
-                intent = new Intent(Verification.this, Login.class);
-                intent.putExtras(Objects.requireNonNull(getIntent().getExtras()));
-                startActivity(intent);
+
             }
         };
         this.getOnBackPressedDispatcher().addCallback(this, callback);
+        
 
     }
 
     void goToNextActivity(){
         if(Objects.equals(Objects.requireNonNull(getIntent().getExtras()).getString(Util.LOGINTYPE), Util.LOGIN)){
-            intent = new Intent(Verification.this, User_homepage.class);
+            intent = new Intent(Verification.this, UserFeed.class);
             intent.putExtras(Objects.requireNonNull(getIntent().getExtras()));
             startActivity(intent);
         }

@@ -73,6 +73,9 @@
                 android:id="@+id/login_countrycode"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                app:ccpDialog_allowSearch="false"
+                app:ccpDialog_showTitle="false"
+                app:ccp_customMasterCountries="US,UK,GB,CA,NG"
                 app:ccp_defaultNameCode="US"
                 app:ccp_showFlag="true"
                 app:ccp_showNameCode="false" />
@@ -147,13 +150,6 @@
                 android:text="@string/next"
                 android:textSize="18sp"
                 android:textStyle="bold"
-                />
-            <ImageView
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:src="@drawable/arrow_fwd_body"
-                app:tint="@color/white"
-                android:layout_marginHorizontal="5dp"
                 />
         </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>

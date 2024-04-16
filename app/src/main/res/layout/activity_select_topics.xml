@@ -2,11 +2,13 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:layout_margin="20dp"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".SelectTopics">
 
         <ProgressBar
+            android:visibility="gone"
             android:id="@+id/topic_progress"
             android:layout_width="match_parent"
             android:layout_height="100dp"
@@ -15,17 +17,9 @@
             android:indeterminateTint="@color/accent"
             />
 
-        <LinearLayout
-            android:id="@+id/topic_main_div"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginHorizontal="20dp"
-            android:gravity="center"
-            android:orientation="vertical"
-
-            >
-
             <TextView
+                android:id="@+id/select_user_header_txt"
+                app:layout_constraintTop_toTopOf="parent"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textAlignment="center"
@@ -34,31 +28,52 @@
                 android:textSize="24sp"
 
                 />
+    <LinearLayout
+        android:id="@+id/topic_main_div"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/select_user_header_txt"
+        android:layout_marginVertical="20dp"
+        >
+        <androidx.recyclerview.widget.RecyclerView
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/topic_recycleview"
+            android:id="@+id/topic_recycleview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:listitem="@layout/topic_view"
+            />
+
+
+    </LinearLayout>
+
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/select_user_footer"
+                app:layout_constraintBottom_toBottomOf="parent"
                 android:layout_width="match_parent"
-                android:layout_height="500dp"
-                tools:listitem="@layout/topic_view"
-                />
-
+                android:layout_height="wrap_content"
+                >
                 <LinearLayout
+                    app:layout_constraintBottom_toTopOf="@id/select_users_individually"
                     android:id="@+id/topic_action_btn"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginVertical="20sp"
                     android:background="@drawable/action_btn"
+                    android:layout_gravity="bottom"
                     android:gravity="center"
                     android:orientation="horizontal"
-                    android:padding="18sp"
-                    >
+                    android:padding="18sp">
+
                     <ProgressBar
                         android:id="@+id/topic_action_btn_load"
-                        android:visibility="gone"
                         android:layout_width="30dp"
                         android:layout_height="25dp"
                         android:indeterminate="true"
-                        android:indeterminateTint="@color/white"/>
+                        android:indeterminateTint="@color/white"
+                        android:visibility="gone" />
 
                     <TextView
                         android:id="@+id/user_action_btn_txt"
@@ -76,9 +91,10 @@
                         android:src="@drawable/arrow_fwd_body"
                         app:tint="@color/white" />
                 </LinearLayout>
-
                 <TextView
-                    android:layout_gravity="center"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:id="@+id/select_users_individually"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/user_intro_footer"
@@ -88,6 +104,7 @@
                     android:layout_marginVertical="5sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     />
-            </LinearLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

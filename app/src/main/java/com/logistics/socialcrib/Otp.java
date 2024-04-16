@@ -63,6 +63,9 @@ public class Otp extends AppCompatActivity {
         binding = ActivityOtpBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
         setContentView(view);
+
+        binding.otpProgressBar.setVisibility(View.VISIBLE);
+        binding.otpDiv.setVisibility(View.GONE);
        intent =  new Intent(Otp.this, Verification.class);
        intent.putExtras(Objects.requireNonNull(getIntent().getExtras()));
 
@@ -126,7 +129,7 @@ public class Otp extends AppCompatActivity {
 
             if(otpValue.length() == 6){
                 binding.otpProgressBar.setVisibility(View.VISIBLE);
-                binding.otpDiv.setVisibility(View.INVISIBLE);
+                binding.otpDiv.setVisibility(View.GONE);
                 verifyWithCode(otpValue);
             }
             else {
@@ -182,7 +185,8 @@ public class Otp extends AppCompatActivity {
 
         @Override
         public void onVerificationFailed(@NonNull FirebaseException e) {
-
+            startActivity(new Intent(Otp.this, Login.class));
+            Util.toast(getApplicationContext(), e.getMessage());
         }
 
         @Override
@@ -190,7 +194,7 @@ public class Otp extends AppCompatActivity {
             super.onCodeSent(s, forceResendingToken);
             verificationCode = s;
             resendingToken = forceResendingToken;
-            binding.otpProgressBar.setVisibility(View.INVISIBLE);
+            binding.otpProgressBar.setVisibility(View.GONE);
             binding.otpDiv.setVisibility(View.VISIBLE);
             getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
             Util.showKeyboard(binding.otpInput1, getApplicationContext());
@@ -206,7 +210,7 @@ public class Otp extends AppCompatActivity {
                         public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                             if (task.isSuccessful() && task.getResult().exists()) {
                                 intent.putExtra(Util.LOGINTYPE, Util.LOGIN);
-                                binding.otpProgressBar.setVisibility(View.INVISIBLE);
+                                binding.otpProgressBar.setVisibility(View.GONE);
                                 binding.otpDiv.setVisibility(View.VISIBLE);
                                 startActivity(intent);
                             } else {
@@ -216,6 +220,11 @@ public class Otp extends AppCompatActivity {
                             }
                         }
                     });
+                }
+                else {
+                    binding.otpProgressBar.setVisibility(View.GONE);
+                    binding.otpDiv.setVisibility(View.VISIBLE);
+                    Util.toast(getApplicationContext(), Objects.requireNonNull(task.getException()).getMessage());
                 }
             });
     }
